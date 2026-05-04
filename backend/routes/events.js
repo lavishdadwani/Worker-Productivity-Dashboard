@@ -2,6 +2,7 @@ import express from "express";
 import { z } from "zod";
 import Event from "../models/Event.js";
 import { v4 as uuidv4 } from "uuid";
+import { validateEvent } from "../middleware/validateEvent.js";
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ const eventSchema = z.object({
 //
 // ✅ POST /events
 //
-router.post("/", async (req, res) => {
+router.post("/",validateEvent ,async (req, res) => {
   try {
     // 1. Validate input
     const parsed = eventSchema.parse(req.body);

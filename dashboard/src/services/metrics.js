@@ -8,7 +8,11 @@ const getMetrics = (params) => {
     }
     return apiConfig.client.get(`metrics/${queryString}`)
 }
+const seedData = () => {
+    return apiConfig.client.post(`seed`)
+}
 
 export default {
-    getMetrics
+    getMetrics,
+    seedData
 }

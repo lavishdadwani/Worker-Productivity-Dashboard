@@ -8,6 +8,7 @@ function App() {
   const [data, setData] = useState(null);
   const [workerFilter, setWorkerFilter] = useState("all");
   const [stationFilter, setStationFilter] = useState("all");
+  const [loadingSeed, setLoadingSeed] = useState(false);
 
   useEffect(() => {
     fetchMetrics();
@@ -22,8 +23,25 @@ function App() {
       setData(res.data);
     } catch (err) {
       console.error(err);
+      alert("Failed to fetch data");
     }
   };
+
+  const handleSeed = async () => {
+    try {
+      setLoadingSeed(true);
+      await metrics.seedData();
+      alert("Sample data generated!");
+      fetchMetrics();
+    } catch(err){
+      console.error(err);
+      alert("Failed to seed data");
+    } finally {
+      setLoadingSeed(false);
+    }
+  };
+
+
 
   if (!data) {
     return (
@@ -42,12 +60,10 @@ function App() {
   const filteredStations =
     stationFilter === "all"
       ? data.workstations
-      : data.workstations.filter(
-          (s) => s.workstation_id === stationFilter
-        );
+      : data.workstations.filter((s) => s.workstation_id === stationFilter);
 
   return (
-    <div className="bg-gray-100 min-h-screen p-6 w-full max-w-7xl mx-auto" >
+    <div className="bg-gray-100 min-h-screen p-6 w-full max-w-7xl mx-auto">
       {/* Header */}
       <h1 className="text-3xl font-bold mb-6 text-gray-800">
         AI Worker Productivity Dashboard
@@ -80,6 +96,14 @@ function App() {
             </option>
           ))}
         </select>
+        {/* 🔥 Seed Button */}
+        <button
+            onClick={handleSeed}
+            disabled={loadingSeed}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg disabled:opacity-50"
+        >
+         {loadingSeed ? "Generating..." : "Generate Sample Data"}
+        </button>
       </div>
 
       {/* Factory Metrics */}
@@ -116,10 +140,7 @@ function App() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {filteredStations.map((station) => (
-          <WorkstationCard
-            key={station.workstation_id}
-            station={station}
-          />
+          <WorkstationCard key={station.workstation_id} station={station} />
         ))}
       </div>
     </div>
