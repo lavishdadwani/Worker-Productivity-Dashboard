@@ -20,10 +20,23 @@ const PORT = process.env.PORT || 8000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // CORS configuration
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173"
+];
+
 app.use(cors({
-    origin: [process.env.FRONTEND_URL , 'http://localhost:5173' , "http://localhost:8081",],
-    credentials: true,
-  }));
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow Postman
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/events", eventRoutes);
