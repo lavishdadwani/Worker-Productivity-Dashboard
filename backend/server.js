@@ -21,7 +21,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // CORS configuration
 app.use(cors({
-  origin: [process.env.FRONTEND_URL , 'https://worker-productivity-dashboard-1-03sq.onrender.com' , "http://localhost:8081",],
+  origin: [process.env.FRONTEND_URL , 'https://worker-productivity-dashboard-1-03sq.onrender.com', "https://worker-productivity-dashboard-7kk1-2rjhwhhat.vercel.app" , "http://localhost:8081",],
   credentials: true,
 }));
 
