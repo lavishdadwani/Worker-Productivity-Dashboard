@@ -8,6 +8,19 @@ It ingests structured events from computer vision systems, stores them, computes
 
 ---
 
+## ⚠️ Note on Performance (Free Hosting)
+
+This application is deployed using free-tier services (Render for backend and Vercel for frontend).
+
+👉 Due to this, the backend server may **spin down after inactivity**.
+When this happens, the first request can take **up to 30–50 seconds** to respond while the server wakes up.
+
+✅ Subsequent requests will be fast once the service is active.
+
+**Tip for evaluators:**
+If the dashboard appears slow initially, please wait a few seconds and refresh once — the system will respond normally afterward.
+
+
 ## 🏗️ Architecture
 
 ```
