@@ -8,6 +8,9 @@ It ingests structured events from computer vision systems, stores them, computes
 
 ---
 
+🔗 Live Demo: https://worker-productivity-dashboard-7kk1-2rjhwhhat.vercel.app/
+📂 GitHub Repository: https://github.com/lavishdadwani/Worker-Productivity-Dashboard
+
 ## ⚠️ Note on Performance (Free Hosting)
 
 This application is deployed using free-tier services (Render for backend and Vercel for frontend).
